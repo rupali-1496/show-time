@@ -17,7 +17,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Main2Activity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
     TextView responseText;
     APIInterface apiInterface;
 
@@ -28,7 +28,6 @@ public class Main2Activity extends AppCompatActivity {
         responseText = (TextView) findViewById(R.id.txt1);
         apiInterface = ApiClient.getClient().create(APIInterface.class);
 
-
         /**
          GET List Resources
          **/
@@ -36,7 +35,7 @@ public class Main2Activity extends AppCompatActivity {
         call.enqueue(new Callback<ContentNodes>() {
             @Override
             public void onResponse(Call<ContentNodes> call, Response<ContentNodes> response) {
-                Log.d("Main2Activity", response.code() + "");
+                Log.d("HomeActivity", response.code() + "");
 
                 Toast.makeText(getApplicationContext(), "hiii: "+response.code(), Toast.LENGTH_SHORT).show();
 
@@ -65,5 +64,10 @@ public class Main2Activity extends AppCompatActivity {
 
 
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }
