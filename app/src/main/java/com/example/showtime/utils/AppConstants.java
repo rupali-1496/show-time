@@ -10,7 +10,7 @@ public class AppConstants {
 
     public static final String EMAIL_ID_2 = "rupali.ranjan1496@gmail.com";
 
-    public static final String PSSWORD = "rupali@14";
+    public static final String PASSWORD = "rupali@14";
 
 
 

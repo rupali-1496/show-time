@@ -90,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
         if(username!=null && password!=null){
             if((username.toString().equals(AppConstants.EMAIL_ID_1) ||
                     username.toString().equals(AppConstants.EMAIL_ID_2))
-                && password.equals(AppConstants.PSSWORD)){
+                && password.equals(AppConstants.PASSWORD)){
 
                 val toast = Toast.makeText(applicationContext, "Login Successful", Toast.LENGTH_SHORT)
                 toast.show()
