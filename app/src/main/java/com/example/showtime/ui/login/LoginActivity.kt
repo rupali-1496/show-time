@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -17,9 +16,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
-import com.google.android.material.textfield.TextInputEditText
+import java.util.regex.Pattern
 
 class LoginActivity : AppCompatActivity() {
+
+
 
     val RC_SIGN_IN =0
 
@@ -41,15 +42,14 @@ class LoginActivity : AppCompatActivity() {
 
         //onclick listener for login using user credentials
         login.setOnClickListener {
-            //  isInputEditTextEmail(username.text,password)
-            login(username.text, password.text.toString())
+            isInputEditTextEmail(username,password)
+            login(username, password.text.toString())
         }
 
         //onclick listener for google sign
         googleLogin.setOnClickListener {
             val signInIntent = mGoogleSignInClient.getSignInIntent()
-
-            startActivityForResult(signInIntent, RC_SIGN_IN);
+            startActivityForResult(signInIntent, RC_SIGN_IN)
         }
 
 
@@ -84,12 +84,12 @@ class LoginActivity : AppCompatActivity() {
         } catch (e: ApiException) {}
     }
 
-
-    fun login(username: Editable, password: String) {
+    fun login(username: EditText, password: String) {
         // can be launched in a separate asynchronous job
         if(username!=null && password!=null){
-            if((username.toString().equals(AppConstants.EMAIL_ID_1) ||
-                    username.toString().equals(AppConstants.EMAIL_ID_2))
+
+            if((username.text.toString().equals(AppConstants.EMAIL_ID_1) ||
+                    username.text.toString().equals(AppConstants.EMAIL_ID_2))
                 && password.equals(AppConstants.PASSWORD)){
 
                 val toast = Toast.makeText(applicationContext, "Login Successful", Toast.LENGTH_SHORT)
@@ -100,19 +100,27 @@ class LoginActivity : AppCompatActivity() {
                 sp1.commit()
 
                 startActivity(Intent(this, HomeActivity::class.java))
+            }else{
+                username.error = "invalid"
+
             }
         }
 
     }
 
-    fun isInputEditTextEmail(textInputEditText: TextInputEditText, textInputLayout: EditText): Boolean {
-        val value = textInputEditText.text.toString().trim()
-        if (value.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(value).matches()) {
-            textInputLayout.error = "error"
+
+    fun isInputEditTextEmail(textInputEditText: EditText, textInputLayout: EditText): Boolean {
+        val emailValue = textInputEditText.toString().trim()
+        val passValue = textInputLayout.toString().trim()
+        if(emailValue.isEmpty() ){
+            textInputLayout.error = ""
             return false
-        } else {
-          //  textInputLayout.isErrorEnabled = false
         }
+        if(passValue.isEmpty() && passValue.length<8){
+            textInputLayout.error = ""
+            return false
+        }
+
         return true
     }
 

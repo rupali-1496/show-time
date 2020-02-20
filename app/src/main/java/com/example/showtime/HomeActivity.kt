@@ -1,14 +1,18 @@
 package com.example.showtime
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofitproj.Api
 import com.example.retrofitproj.Movie
 import com.example.retrofitproj.MoviesAdapter
+import com.example.showtime.search.SearchActivity
 
 class HomeActivity : AppCompatActivity() {
 
@@ -44,5 +48,27 @@ class HomeActivity : AppCompatActivity() {
 
     private fun onError() {
         Toast.makeText(this, getString(R.string.error_fetch_movies), Toast.LENGTH_SHORT).show()
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.actionbar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.search -> {
+                    val intent = Intent(this, SearchActivity::class.java)
+                    startActivity(intent)
+
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+
     }
 }

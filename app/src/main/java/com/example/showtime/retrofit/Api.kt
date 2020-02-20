@@ -17,6 +17,13 @@ interface Api {
         @Query("page") page: Int
     ): Call<GetMoviesResponse>
 
+    @GET("search/movie")
+    fun searchMovie(
+        @Query("api_key") apiKey: String = "aca35d034c9330fea578760de19df054",
+        @Query("query") query : String = "Ant Man",
+        @Query("page") page : Int
+    ): Call<GetMoviesResponse>
+
     object MoviesRepository {
 
         private val api: Api
