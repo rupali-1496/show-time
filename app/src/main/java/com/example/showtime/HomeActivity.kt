@@ -6,50 +6,48 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.retrofitproj.Api
-import com.example.retrofitproj.Movie
-import com.example.retrofitproj.MoviesAdapter
+import androidx.viewpager.widget.ViewPager
+import com.example.showtime.repository.MovieRepository
 import com.example.showtime.search.SearchActivity
+import com.example.showtime.utils.AppConstants
+import com.google.android.material.tabs.TabLayout
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var popularMovies: RecyclerView
-    private lateinit var popularMoviesAdapter: MoviesAdapter
+    private var tabs: TabLayout? = null
+    private var viewPager: ViewPager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        popularMovies = findViewById(R.id.popular_movies)
-        popularMovies.layoutManager = LinearLayoutManager(
-            this,
-            LinearLayoutManager.VERTICAL,
-            false
-        )
+        tabs = findViewById(R.id.genres)
+        viewPager = findViewById(R.id.view)
 
+        tabs!!.addTab(tabs!!.newTab().setText("Movie"))
+        tabs!!.addTab(tabs!!.newTab().setText("Tv Shows"))
+        tabs!!.tabGravity = TabLayout.GRAVITY_FILL
 
-        popularMoviesAdapter = MoviesAdapter(listOf())
-        popularMovies.adapter = popularMoviesAdapter
+        val adapter = CustomPagerAdapter(this, supportFragmentManager)
+        viewPager!!.adapter = adapter
+        viewPager!!.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
 
+        tabs!!.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                viewPager!!.currentItem = tab.position
+            }
 
-        Api.MoviesRepository.getPopularMovies(
-            onSuccess = ::onPopularMoviesFetched,
-            onError = ::onError
-        )
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
+
+        Log.d("HomeActivity","response: ")
+
+      //  var d = MovieRepository()
+     //   d.getPopularMovies(18,2014,AppConstants.API_KEY)
+
     }
-
-    private fun onPopularMoviesFetched(movies: List<Movie>) {
-        Log.d("MainActivity", "Movies: $movies")
-        popularMoviesAdapter.updateMovies(movies)
-    }
-
-    private fun onError() {
-        Toast.makeText(this, getString(R.string.error_fetch_movies), Toast.LENGTH_SHORT).show()
-    }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.actionbar_menu, menu)

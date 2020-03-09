@@ -6,4 +6,14 @@
             android:title="Search"
             android:icon="@drawable/ic_search_black_24dp"
             app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/edit_text_menu"
+        android:orderInCategory="300"
+        android:title="Tap Below"
+        android:actionLayout="@layout/edit_text_layout"
+        app:showAsAction="ifRoom|collapseActionView"
+        />
+
+
 </menu>

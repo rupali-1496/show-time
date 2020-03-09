@@ -3,7 +3,8 @@ package com.example.retrofitproj
 import com.google.gson.annotations.SerializedName
 
 data class GetMoviesResponse(
-    @SerializedName("page") val page: Int,
-    @SerializedName("results") val movies: List<Movie>,
-    @SerializedName("total_pages") val pages: Int
+    @SerializedName("id") val id: Int,
+    @SerializedName("logo_path") val logo_path: String,
+    @SerializedName("name") val name: Int,
+    @SerializedName("origin_country") val origin_country: String
 )

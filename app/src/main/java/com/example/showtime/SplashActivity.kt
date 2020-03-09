@@ -12,7 +12,7 @@ import com.example.showtime.utils.AppConstants
 
 class SplashActivity : AppCompatActivity() {
 
-    private val SPLASH_TIME_OUT:Long = 5000
+    private val timeOut:Long = 5000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +33,7 @@ class SplashActivity : AppCompatActivity() {
 
             // close this activity
             finish()
-        }, SPLASH_TIME_OUT)
+        }, timeOut)
     }
 
 
