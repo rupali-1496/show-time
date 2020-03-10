@@ -8,9 +8,7 @@ public class AppConstants {
 
     public static final String SHARED_PREF_KEY = "login";
 
-    public static final String EMAIL_ID_1 = "xyz@gmail.com";
-
-    public static final String EMAIL_ID_2 = "abcd@gmail.com";
+    public static final String EMAIL_ID = "xyz@gmail.com";
 
     public static final String PASSWORD = "rupali@14";
 

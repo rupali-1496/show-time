@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.retrofitproj.Adapter;
 import com.example.showtime.R;
@@ -26,6 +29,7 @@ public class SearchActivity extends AppCompatActivity {
     private Adapter moviesAdapter = null;
     public static ArrayList<ApiResponse> movieList = null;
     private EditText editText;
+    private ImageButton search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +38,7 @@ public class SearchActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerview_search);
         editText = findViewById(R.id.editText_search);
-
+        search = findViewById(R.id.searchButton);
         moviesAdapter = new Adapter();
 
         recyclerView.setHasFixedSize(true);
@@ -43,15 +47,15 @@ public class SearchActivity extends AppCompatActivity {
 
         movieList = new ArrayList<>();
 
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        search.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if((event!=null && (event.getKeyCode()==KeyEvent.KEYCODE_ENTER))||(actionId == EditorInfo.IME_ACTION_DONE)){
-                    getSearch(v.getText().toString());
+            public void onClick(View v) {
+                if(editText.getText().toString().isEmpty()){
+                    Toast.makeText(getBaseContext(),"Please Enter movie name",Toast.LENGTH_SHORT).show();
+                }else{
+                    getSearch(editText.getText().toString());
                 }
-                return false;
             }
-
         });
     }
 

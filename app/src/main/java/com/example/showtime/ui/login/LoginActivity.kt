@@ -40,8 +40,7 @@ class LoginActivity : AppCompatActivity() {
 
         //onclick listener for login using user credentials
         login.setOnClickListener {
-            isInputEditTextEmail(username,password)
-            login(username, password.text.toString())
+            login(username, password)
         }
 
         //onclick listener for google sign
@@ -64,6 +63,15 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun isEmailIdValid(emailId: String): Boolean {
+        return emailId.isNotBlank() && emailId.contains('@') && AppConstants.EMAIL_ID.equals(emailId)
+    }
+
+
+    private fun isPasswordValid(password: String): Boolean {
+        return AppConstants.PASSWORD.equals(password)
+    }
+
 
     private fun handleSignInResult(task: Task<GoogleSignInAccount>?) {
         try {
@@ -81,14 +89,16 @@ class LoginActivity : AppCompatActivity() {
         } catch (e: ApiException) {}
     }
 
-    fun login(username: EditText, password: String) {
-        // can be launched in a separate asynchronous job
+    fun login(username: EditText, password: EditText) {
         if(username!=null && password!=null){
 
-            if((username.text.toString().equals(AppConstants.EMAIL_ID_1) ||
-                    username.text.toString().equals(AppConstants.EMAIL_ID_2))
-                && password.equals(AppConstants.PASSWORD)){
-
+            var x = isEmailIdValid(username.text.toString())
+            var y = isPasswordValid(password.text.toString())
+            if(!x){
+                username.error = "invalid"
+            };if(!y){
+                password.error = "invalid"
+            };if(x && y){
                 val toast = Toast.makeText(applicationContext, "Login Successful", Toast.LENGTH_SHORT)
                 toast.show()
                 var sp = this.getSharedPreferences(AppConstants.SHARED_PREFERENCE, Context.MODE_PRIVATE)
@@ -97,29 +107,8 @@ class LoginActivity : AppCompatActivity() {
                 sp1.commit()
 
                 startActivity(Intent(this, HomeActivity::class.java))
-            }else{
-                username.error = "invalid"
-
             }
         }
 
     }
-
-
-    fun isInputEditTextEmail(textInputEditText: EditText, textInputLayout: EditText): Boolean {
-        val emailValue = textInputEditText.toString().trim()
-        val passValue = textInputLayout.toString().trim()
-        if(emailValue.isEmpty() ){
-            textInputLayout.error = ""
-            return false
-        }
-        if(passValue.isEmpty() && passValue.length<8){
-            textInputLayout.error = ""
-            return false
-        }
-
-        return true
-    }
-
-
 }
