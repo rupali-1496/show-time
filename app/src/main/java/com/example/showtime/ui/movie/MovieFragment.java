@@ -90,17 +90,23 @@ public class MovieFragment extends Fragment {
     }
 
     private void getMovies() {
-        MovieRepo mv = new MovieRepo();
-        mv.getPopularMovies(18, 2014, AppConstants.API_KEY);
+        if (movieList == null) {
+            MovieRepo mv = new MovieRepo();
+            mv.getPopularMovies(18, 2014, AppConstants.API_KEY);
 
-        final Handler handler= new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                moviesAdapter.updateMovies(movieList);
-                recyclerView.setAdapter(moviesAdapter);
-            }
-        },2000);
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    moviesAdapter.updateMovies(movieList);
+                    recyclerView.setAdapter(moviesAdapter);
+                }
+            }, 2000);
+        }else{
+            moviesAdapter.updateMovies(movieList);
+            recyclerView.setAdapter(moviesAdapter);
+        }
+    }
 
 /*
         mHandler = new Handler(Looper.getMainLooper()) {
@@ -124,7 +130,7 @@ public class MovieFragment extends Fragment {
         };
 
 */
-    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -109,18 +109,22 @@ public class KidsMovieFragment extends Fragment {
     }
 
     private void getKidsMovie() {
-        MovieRepo mv = new MovieRepo();
-        mv.getKidsMovie("US", "G", AppConstants.API_KEY);
+        if (movieList == null) {
+            MovieRepo mv = new MovieRepo();
+            mv.getKidsMovie("US", "G", AppConstants.API_KEY);
 
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Log.d(TAG, "getKidsMovie(): ");
-                moviesAdapter.updateMovies(movieList);
-                recyclerView.setAdapter(moviesAdapter);
-            }
-        }, 2000);
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(TAG, "getKidsMovie(): ");
+                    moviesAdapter.updateMovies(movieList);
+                    recyclerView.setAdapter(moviesAdapter);
+                }
+            }, 2000);
+        }else{
+            moviesAdapter.updateMovies(movieList);
+            recyclerView.setAdapter(moviesAdapter);
+        }
     }
-
 }

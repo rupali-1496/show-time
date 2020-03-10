@@ -105,16 +105,21 @@ public class DramaFragment extends Fragment {
     }
 
     private void getDramas() {
-        MovieRepo mv = new MovieRepo();
-        mv.getDramas(18, "vote_average.desc", 10, AppConstants.API_KEY);
+        if (movieList == null) {
+            MovieRepo mv = new MovieRepo();
+            mv.getDramas(18, "vote_average.desc", 10, AppConstants.API_KEY);
 
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                moviesAdapter.updateMovies(movieList);
-                recyclerView.setAdapter(moviesAdapter);
-            }
-        }, 2000);
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    moviesAdapter.updateMovies(movieList);
+                    recyclerView.setAdapter(moviesAdapter);
+                }
+            }, 2000);
+        }else {
+            moviesAdapter.updateMovies(movieList);
+            recyclerView.setAdapter(moviesAdapter);
+        }
     }
 }
