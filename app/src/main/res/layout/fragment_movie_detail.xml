@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="400dp"
+    android:orientation="vertical"
+    android:animateLayoutChanges="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="fitStart"
+        android:id="@+id/movie_poster"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:id="@+id/ratings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_star_24dp"
+            android:drawableLeft="@drawable/common_google_signin_btn_text_dark"
+            android:drawablePadding="@dimen/activity_horizontal_margin"
+            android:gravity="center|start"
+            >
+
+        </TextView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/watch_now"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2.2"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/ic_play"
+            android:drawablePadding="@dimen/activity_horizontal_margin"
+            android:gravity="center|start" />
+
+        <TextView
+            android:id="@+id/watch_now_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Watch Now"></TextView>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/descrition"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp" />
+</LinearLayout>
+
+</FrameLayout>

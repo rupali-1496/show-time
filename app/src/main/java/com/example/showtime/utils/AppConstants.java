@@ -23,6 +23,6 @@ public class AppConstants {
 }
 //https://api.themoviedb.org/3/movie/550?api_key=aca35d034c9330fea578760de19df054
 
-//https://image.tmdb.org/t/p/w185/fa4PxEPRKWRyjzYje1jM4m30qzd.jpg
+//https://image.tmdb.org/t/p/w185/or06FN3Dka5tukK1e9sl16pB3iy.jpg
 
 //https://api.themoviedb.org/3/search/movie?api_key=aca35d034c9330fea578760de19df054&query=avengers

@@ -7,9 +7,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.viewpager.widget.ViewPager
-import com.example.showtime.repository.MovieRepository
-import com.example.showtime.search.SearchActivity
-import com.example.showtime.utils.AppConstants
+import com.example.showtime.search.SearchActivity2
 import com.google.android.material.tabs.TabLayout
 
 class HomeActivity : AppCompatActivity() {
@@ -57,7 +55,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
             R.id.search -> {
-                    val intent = Intent(this, SearchActivity::class.java)
+                    val intent = Intent(this, SearchActivity2::class.java)
                     startActivity(intent)
 
                 return true
