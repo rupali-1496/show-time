@@ -1,10 +1,9 @@
-package com.example.showtime.ui;
+package com.example.showtime.ui.movie;
 
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,26 +17,20 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.retrofitproj.MoviesAdapter;
+import com.example.retrofitproj.Adapter;
 import com.example.showtime.R;
 import com.example.showtime.lttsPlayer.Player;
-import com.example.showtime.repository.MovieRepo;
-import com.example.showtime.retrofit.Movie;
+import com.example.showtime.retrofit.repository.MovieRepo;
+import com.example.showtime.retrofit.model.ApiResponse;
 import com.example.showtime.utils.AppConstants;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class MovieFragment extends Fragment {
 
-    private static final String TAG = "MovieFragment";
     private RecyclerView recyclerView= null;
-    private MoviesAdapter moviesAdapter = null;
-    public static ArrayList<Movie> movieList = null;
-    Dialog myDialog;
-    private ImageView moviePoster = null;
-    private TextView ratings = null;
-    private TextView description = null;
-    private Button watchNow = null;
+    private Adapter moviesAdapter = null;
+    public static ArrayList<ApiResponse> movieList = null;
 
     public static MovieFragment getInstance(){
         return new MovieFragment();
@@ -56,14 +49,11 @@ public class MovieFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView);
 
-        moviesAdapter = new MoviesAdapter();
-        moviesAdapter.setOnItemClickListener(new MoviesAdapter.OnItemClickListener() {
+        moviesAdapter = new Adapter();
+        moviesAdapter.setOnItemClickListener(new Adapter.OnItemClickListener() {
                                                  @Override
                                                  public void onItemClick(int position, @NotNull View v) {
-                                                     Log.d("Harsh1314","list/");
-                                                     Log.d("Harsh1314","list/"+movieList.get(position).getRating());
                                                      showMovieDetail(movieList.get(position));
-
                                                  }
                                              });
 
@@ -72,13 +62,13 @@ public class MovieFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
     }
 
-    private void showMovieDetail(Movie movieList) {
-        myDialog = new Dialog(getContext());
-        myDialog.setContentView(R.layout.fragment_movie_detail);
-        moviePoster = myDialog.findViewById(R.id.movie_poster);
-        ratings = myDialog.findViewById(R.id.ratings);
-        description = myDialog.findViewById(R.id.descrition);
-        watchNow = myDialog.findViewById(R.id.watch_now);
+    private void showMovieDetail(ApiResponse movieList) {
+        Dialog myDialog = new Dialog(getContext());
+        myDialog.setContentView(R.layout.fragment_detail);
+        ImageView moviePoster = myDialog.findViewById(R.id.movie_poster);
+        TextView ratings = myDialog.findViewById(R.id.ratings);
+        TextView description = myDialog.findViewById(R.id.descrition);
+        Button watchNow = myDialog.findViewById(R.id.watch_now);
 
         watchNow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,9 +97,7 @@ public class MovieFragment extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Log.d("SearchActivity2","movieList: ");
-                moviesAdapter.updateMovies(MovieRepo.movies);
-                Log.d("SearchActivity2","movieList: "+MovieRepo.movies);
+                moviesAdapter.updateMovies(movieList);
                 recyclerView.setAdapter(moviesAdapter);
             }
         },2000);
@@ -121,7 +109,7 @@ public class MovieFragment extends Fragment {
                 switch (msg.what){
                     case 200:
                         Log.d("MovieFragment","200rupali_movieList: "+MovieRepo.movies);
-                        //List<Movie> movieList = new ArrayList<>();
+                        //List<ApiResponse> movieList = new ArrayList<>();
                         moviesAdapter.updateMovies(MovieRepo.movies);
 
                         recyclerView.setAdapter(moviesAdapter);
@@ -140,6 +128,6 @@ public class MovieFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_movie,container,false);
+        return inflater.inflate(R.layout.genre_fragment,container,false);
     }
 }

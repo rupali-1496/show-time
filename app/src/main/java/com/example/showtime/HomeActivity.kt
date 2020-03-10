@@ -3,11 +3,10 @@ package com.example.showtime
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.viewpager.widget.ViewPager
-import com.example.showtime.search.SearchActivity2
+import com.example.showtime.ui.search.SearchActivity
 import com.google.android.material.tabs.TabLayout
 
 class HomeActivity : AppCompatActivity() {
@@ -17,16 +16,17 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_home)
 
         tabs = findViewById(R.id.genres)
         viewPager = findViewById(R.id.view)
 
         tabs!!.addTab(tabs!!.newTab().setText("Movie"))
-        tabs!!.addTab(tabs!!.newTab().setText("Tv Shows"))
+        tabs!!.addTab(tabs!!.newTab().setText("Drama"))
+        tabs!!.addTab(tabs!!.newTab().setText("Kids"))
         tabs!!.tabGravity = TabLayout.GRAVITY_FILL
 
-        val adapter = CustomPagerAdapter(this, supportFragmentManager)
+        val adapter = ViewPagerAdapter(this, supportFragmentManager)
         viewPager!!.adapter = adapter
         viewPager!!.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
 
@@ -40,11 +40,6 @@ class HomeActivity : AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
 
-        Log.d("HomeActivity","response: ")
-
-      //  var d = MovieRepository()
-     //   d.getPopularMovies(18,2014,AppConstants.API_KEY)
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -55,16 +50,12 @@ class HomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
             R.id.search -> {
-                    val intent = Intent(this, SearchActivity2::class.java)
+                    val intent = Intent(this, SearchActivity::class.java)
                     startActivity(intent)
 
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onBackPressed() {
-
     }
 }

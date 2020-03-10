@@ -20,8 +20,6 @@ import java.util.regex.Pattern
 
 class LoginActivity : AppCompatActivity() {
 
-
-
     val RC_SIGN_IN =0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +67,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun handleSignInResult(task: Task<GoogleSignInAccount>?) {
         try {
-            var account = task?.getResult(ApiException::class.java)
             Toast.makeText(applicationContext,"Google Login Successful", Toast.LENGTH_SHORT).show()
             var sp = this.getSharedPreferences(AppConstants.SHARED_PREFERENCE, Context.MODE_PRIVATE)
             var sp1 = sp.edit()

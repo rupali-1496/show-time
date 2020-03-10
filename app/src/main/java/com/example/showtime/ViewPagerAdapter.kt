@@ -4,11 +4,12 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.showtime.ui.MovieFragment
-import com.example.showtime.utils.AppConstants
+import com.example.showtime.ui.movie.MovieFragment
+import com.example.showtime.ui.drama.DramaFragment
+import com.example.showtime.ui.kids.KidsMovieFragment
 import com.example.showtime.utils.AppConstants.*
 
-class CustomPagerAdapter(val ctx : Context, fragmentManager: FragmentManager): FragmentPagerAdapter(fragmentManager){
+class ViewPagerAdapter(val ctx : Context, fragmentManager: FragmentManager): FragmentPagerAdapter(fragmentManager){
     override fun getItem(position: Int): Fragment {
 
 
@@ -17,9 +18,11 @@ class CustomPagerAdapter(val ctx : Context, fragmentManager: FragmentManager): F
                 return MovieFragment.getInstance()
             }
             1->{
-
+                return DramaFragment.getInstance()
             }
-
+            2->{
+                return KidsMovieFragment.getInstance()
+            }
         }
         return MovieFragment.getInstance()
     }

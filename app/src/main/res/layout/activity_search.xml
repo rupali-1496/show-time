@@ -6,30 +6,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".search.SearchActivity2">
+    tools:context=".ui.search.SearchActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@android:color/white">
+        android:orientation="vertical">
+
         <EditText
-            android:hint="Search"
+            android:id="@+id/editText_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText_search"
-            />
+            android:drawableRight="@drawable/ic_search_black_24dp"
+            android:hint="Search"
+            android:textColor="#0F0F0F" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"
             android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="5dp"
+            android:padding="10dp"
 
-            android:scrollbars="vertical">
-        </androidx.recyclerview.widget.RecyclerView>
+            android:scrollbars="vertical"></androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

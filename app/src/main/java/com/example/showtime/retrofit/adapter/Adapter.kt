@@ -8,27 +8,22 @@ import android.widget.ImageView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.showtime.OnItemClickListener
 import com.example.showtime.R
-import com.example.showtime.retrofit.Movie
+import com.example.showtime.retrofit.model.ApiResponse
 import com.example.showtime.utils.AppConstants
 
+class Adapter : RecyclerView.Adapter<Adapter.MovieViewHolder>() {
 
 
-
-
-class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
-
-
-    private val movies: ArrayList<Movie> = ArrayList<Movie>()
-
+    private val movies: ArrayList<ApiResponse> = ArrayList<ApiResponse>()
+    private var TAG:String="Adapter"
     private var clickListener: OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        Log.d("onCreateViewHolder", "imgPosterUrl: ")
+        Log.d(TAG, "onCreateViewHolder(): ")
         val view = LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.item_movie, parent, false)
+            .inflate(R.layout.item_genre, parent, false)
         return MovieViewHolder(view)
     }
 
@@ -37,7 +32,7 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
     }
 
     fun setOnItemClickListener(listener:OnItemClickListener ) {
-        Log.d("Harsh1315","list")
+
         this.clickListener = listener
     }
 
@@ -45,12 +40,8 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
         fun onItemClick(position: Int, v: View)
     }
 
-    fun getItem(position: Int): Movie {
-        return movies!!.get(position)
-    }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        //val mv = getItem(position)
         val ctx = holder.moviePoster.context
         var imgUrl: String
         if (movies.size == 0) {
@@ -60,16 +51,16 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
         }
 
         Glide.with(ctx).load(imgUrl)
-            .placeholder(R.drawable.ic_search_black_24dp)
+            .placeholder(R.drawable.ic_play)
             .error(R.drawable.common_google_signin_btn_icon_dark_focused)
             .into(holder.moviePoster)
     }
 
-    fun updateMovies(@NonNull movies: java.util.ArrayList<Movie>) {
+    fun updateMovies(@NonNull movies: java.util.ArrayList<ApiResponse>) {
 
         this.movies.clear()
 
-        Log.d("Harsh96: ", "momvieshii: " + movies.toString())
+        Log.d(TAG , "updateMovies: " + movies.toString())
 
         this.movies.addAll(movies)
         notifyDataSetChanged()
@@ -90,21 +81,3 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
         }
     }
 }
-
-
-/*
-        init {
-            moviePoster = itemView.findViewById(R.id.item_movie_poster)
-
-            //click listener for Movie item
-            itemView.setOnClickListener {
-                val position = this.adapterPosition
-                if (listener != null && position != RecyclerView.NO_POSITION) {
-                    listener!!.onItemClick(getItem(position))
-                }
-            }
-        }
-
- */
-
-

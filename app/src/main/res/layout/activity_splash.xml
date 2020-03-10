@@ -14,14 +14,16 @@
         android:id="@+id/logo"
         android:src="@drawable/logo"
         />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:fontFamily="cursive"
         android:text="ShowTime"
-        android:textSize="30sp"
-        android:textColor="@android:color/holo_red_light"
-        >\</TextView>
+        android:textColor="#651FFF"
+        android:textSize="30sp">\
+    </TextView>
 
 
 </LinearLayout>

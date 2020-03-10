@@ -1,18 +1,18 @@
-package com.example.showtime.retrofit;
+package com.example.showtime.retrofit.model;
 
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class Movie {
+public class ApiResponse {
 
     @SerializedName("id")
     private Long id;
     @SerializedName("title")
     private String title;
     @SerializedName("results")
-    private ArrayList<Movie> results;
+    private ArrayList<ApiResponse> results;
     @SerializedName("overview")
     private String overview;
     @SerializedName("poster_path")
@@ -24,7 +24,7 @@ public class Movie {
     @SerializedName("release_date")
     private String releaseDate;
 
-    public void setResults(ArrayList<Movie> r){
+    public void setResults(ArrayList<ApiResponse> r){
         this.results = r;
     }
 
@@ -80,7 +80,7 @@ public class Movie {
         this.releaseDate = releaseDate;
     }
 
-    public ArrayList<Movie> getResults(){
+    public ArrayList<ApiResponse> getResults(){
         return this.results;
     }
 
